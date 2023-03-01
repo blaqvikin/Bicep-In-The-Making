@@ -1,0 +1,92 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "value": "southafricanorth"
+        },
+        "networkInterfaceName": {
+            "value": "spartan-prod-vm-d751"
+        },
+        "enableAcceleratedNetworking": {
+            "value": true
+        },
+        "networkSecurityGroupName": {
+            "value": "Spartan-Prod-internal-NSG"
+        },
+        "networkSecurityGroupRules": {
+            "value": [
+                {
+                    "name": "default-allow-rdp",
+                    "properties": {
+                        "priority": 1000,
+                        "protocol": "TCP",
+                        "access": "Allow",
+                        "direction": "Inbound",
+                        "sourceApplicationSecurityGroups": [],
+                        "destinationApplicationSecurityGroups": [],
+                        "sourceAddressPrefix": "*",
+                        "sourcePortRange": "*",
+                        "destinationAddressPrefix": "*",
+                        "destinationPortRange": "3389"
+                    }
+                }
+            ]
+        },
+        "subnetName": {
+            "value": "Internal"
+        },
+        "virtualNetworkId": {
+            "value": "/subscriptions/9c01462e-3ecc-402c-8f2f-116606b4fc42/resourceGroups/SpartanZA-Navision/providers/Microsoft.Network/virtualNetworks/SpartanZAVlan01"
+        },
+        "virtualMachineName": {
+            "value": "Spartan-Prod-VM-DC01"
+        },
+        "virtualMachineComputerName": {
+            "value": "Spartan-Prod-VM"
+        },
+        "virtualMachineRG": {
+            "value": "SpartanZA-AD"
+        },
+        "osDiskType": {
+            "value": "Standard_LRS"
+        },
+        "osDiskDeleteOption": {
+            "value": "Delete"
+        },
+        "virtualMachineSize": {
+            "value": "Standard_D2s_v3"
+        },
+        "nicDeleteOption": {
+            "value": "Delete"
+        },
+        "adminUsername": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/9c01462e-3ecc-402c-8f2f-116606b4fc42/resourceGroups/SpartanZA-AD/providers/Microsoft.KeyVault/vaults/spartanza-prod-kv01"
+                },
+                "secretName": "vmAdministratorLogin"
+            }
+        },
+        "adminPassword": {
+            "reference": {
+                "keyVault": {
+                    "id": "/subscriptions/9c01462e-3ecc-402c-8f2f-116606b4fc42/resourceGroups/SpartanZA-AD/providers/Microsoft.KeyVault/vaults/spartanza-prod-kv01"
+                },
+                "secretName": "vmAdministratorPassword"
+            }
+        },
+        "patchMode": {
+            "value": "AutomaticByOS"
+        },
+        "enableHotpatching": {
+            "value": false
+        },
+        "diagnosticsStorageAccountName": {
+            "value": "scfstorage"
+        },
+        "diagnosticsStorageAccountId": {
+            "value": "/subscriptions/9c01462e-3ecc-402c-8f2f-116606b4fc42/resourceGroups/SCFResourceGroup/providers/Microsoft.Storage/storageAccounts/scfstorage"
+        }
+    }
+}
