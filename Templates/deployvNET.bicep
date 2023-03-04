@@ -38,7 +38,7 @@ properties: {
 }
 tags: {
   Product: 'Virtual Networks'
-  Code: 'Bicep'
+  IAC: 'Bicep'
 }
 }
 @description('The virtual network that was deployed')
