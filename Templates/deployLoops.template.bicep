@@ -1,10 +1,5 @@
 @description('The Azure region into which the resources should be deployed.')
-param locations array = [
-  'westeurope'
-  'eastus2'
-  'eastasia'
-]
-
+param locations string = resourceGroup().location
 @secure()
 @description('The administrator login username for the SQL server.')
 param sqlServerAdministratorLogin string
@@ -13,12 +8,12 @@ param sqlServerAdministratorLogin string
 @description('The administrator login password for the SQL server.')
 param sqlServerAdministratorPassword string
 
-module databases 'modules/databases.bicep' = [for location in locations: {
-  name: 'database-${location}'
+module databases '../modules/databases.bicep' = {
+  name: 'database-${locations}'
   params: {
-    location: location
+    location: locations
     sqlServerAdministratorLogin: sqlServerAdministratorLogin
     sqlServerAdministratorPassword: sqlServerAdministratorPassword
   }
   
-}]
+}
