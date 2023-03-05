@@ -2,7 +2,7 @@ param location string
 param appServiceAppname string
 
 @allowed([
-  'nonprod'
+  'dev'
   'prod'
 ])
 param environmentType string
