@@ -19,23 +19,19 @@ param addressSpace string = '172.20.0.0/16'
 
 @description('Define the subnet/s to be created during deployment of this vNET, this could look like this 0.0.0.0/24')
 param subnetRanges array = [
-  {
-  name:'subnet1'
-      ipAddressRange: '172.20.1.0/24'
-}
-{
-  name: 'subnet2'
-      ipAddressRange: '172.20.2.0/24'
-}
+'subnet1'
+'subnet2'
+'subnet3'
 ]
 
 //Define a loop to iterate to all the ranges defined for your subnets
-var subnetProperties = [for subnet in subnetRanges: {
+var subnetProperties = [for (subnet, i) in subnetRanges: {
   name: subnet.name
   properties: {
-    addressPrefix: subnet.ipAddressRange
+    addressPrefix: '172.20.${i}.0/24'
   }
 }]
+//Deploy the virtual network resource
 resource virtualNetwork 'Microsoft.Network/virtualNetworks@2022-07-01'= {
   name: vNETname
   location: location
@@ -45,6 +41,7 @@ properties: {
       addressSpace
     ]
   }
+  // Apply the loop that deploys each subnet
   subnets: subnetProperties
 }
 tags: {
