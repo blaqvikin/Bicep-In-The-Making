@@ -12,10 +12,10 @@ param location string = resourceGroup().location
   scope: resourceGroup(exampleRG)
 }*/
 @description('Define the virtual network name')
-param vNETname string = '<enter vNET name>'
+param vNETname string = 'bicepVNET4'
 
 @description('Define the vNET address space, this could look like this 10.0.0.0/16')
-param addressSpace string = '172.20.0.0/16'
+param addressSpace string = '172.21.0.0/16'
 
 @description('Define the subnet/s to be created during deployment of this vNET, this could look like this 0.0.0.0/24')
 param subnetRanges array = [
@@ -25,10 +25,10 @@ param subnetRanges array = [
 ]
 
 //Define a loop to iterate to all the ranges defined for your subnets
-var subnetProperties = [for (subnet, i) in subnetRanges: {
-  name: subnet.name
+var subnetProperties = [for (subnetName, i) in subnetRanges: {
+  name: subnetName
   properties: {
-    addressPrefix: '172.20.${i}.0/24'
+    addressPrefix: '172.21.${i}.0/24'
   }
 }]
 //Deploy the virtual network resource
