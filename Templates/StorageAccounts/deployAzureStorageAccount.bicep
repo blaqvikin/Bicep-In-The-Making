@@ -2,8 +2,8 @@
 param location string = resourceGroup().location
 
 @description('Limit the length of the storage account name. Define storage generic name for storage account based on the given parameters.')
-@minLength(5)
-@maxLength(15)
+//@minLength(5)
+@maxLength(12)
 param storageAccountName string = 'mh${uniqueString(resourceGroup().id)}'
 
 @allowed([
